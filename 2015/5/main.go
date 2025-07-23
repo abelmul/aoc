@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"io"
-
-	"github.com/glenn-brown/golang-pkg-pcre/src/pkg/pcre"
 )
 
 /**
@@ -76,12 +74,33 @@ func is_good_string_1(line string) int {
 }
 
 func is_good_string_2(line string) int {
-	regex_two_chars, _ := pcre.Compile(`(..).*\1`, 0)
-	regex_repeating_char, _ := pcre.Compile(`(.).\1`, 0)
+	prevPrevChar := line[0]
+	twoCharMap := map[string]int{}
 
-	if regex_two_chars.MatcherString(line, 0).Matches() && regex_repeating_char.MatcherString(line, 0).Matches() {
-		return 1
+	repeating_non_overlapping_pair := false
+	repeating_char_with_one_in_between_letter := false
+
+	// add one space to line for the sliding window to work
+	line = line + " "
+
+	for i := 2; i < len(line); i++ {
+		if v, ok := twoCharMap[line[i-2:i]]; ok && i > v+3 {
+			repeating_non_overlapping_pair = true
+		} else {
+			twoCharMap[line[i-2:i]] = i - 2
+		}
+
+		if line[i] == prevPrevChar {
+			repeating_char_with_one_in_between_letter = true
+		} else {
+			prevPrevChar = line[i-1]
+		}
+
+		if repeating_char_with_one_in_between_letter && repeating_non_overlapping_pair {
+			return 1
+		}
 	}
+
 	return 0
 }
 
