@@ -101,8 +101,8 @@ func reduce(o map[string]any) (int, int) {
 }
 
 func main() {
-	bufio := bufio.NewReader(os.Stdin)
-	line, _ := bufio.ReadString('\n')
+	reader := bufio.NewReader(os.Stdin)
+	line, _ := reader.ReadString('\n')
 
 	o := map[string]any{}
 

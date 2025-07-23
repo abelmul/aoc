@@ -96,18 +96,18 @@ func dfs(wires map[string]string, wire string, memo map[string]int) int {
 }
 
 func main() {
-	bufio := bufio.NewReader(os.Stdin)
+	reader := bufio.NewReader(os.Stdin)
 
 	wires := map[string]string{}
 
 	for {
-		line, err := bufio.ReadString('\n')
+		line, err := reader.ReadString('\n')
 
 		if err == io.EOF {
 			break
 		}
 
-		line = line[:len(line)-1]
+		line = strings.TrimSpace(line)
 		splits := strings.Split(line, " -> ")
 
 		wires[splits[1]] = splits[0]

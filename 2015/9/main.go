@@ -115,12 +115,12 @@ func traveling_salesman(locations map[string]map[string]int) (int, int) {
 }
 
 func main() {
-	bufio := bufio.NewReader(os.Stdin)
+	reader := bufio.NewReader(os.Stdin)
 
 	locations := map[string]map[string]int{}
 
 	for {
-		line, err := bufio.ReadString('\n')
+		line, err := reader.ReadString('\n')
 
 		if err == io.EOF {
 			break

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 )
 
 /**
@@ -45,20 +46,20 @@ Your task is to find the total number of characters to represent the newly encod
 */
 
 func main() {
-	bufio := bufio.NewReader(os.Stdin)
+	reader := bufio.NewReader(os.Stdin)
 
 	codeCount := 0
 	charCount := 0
 	encodedCount := 0
 
 	for {
-		line, err := bufio.ReadString('\n')
+		line, err := reader.ReadString('\n')
 
 		if err == io.EOF {
 			break
 		}
 
-		line = line[:len(line)-1]
+		line = strings.TrimSpace(line)
 
 		l := len(line)
 		i := 0

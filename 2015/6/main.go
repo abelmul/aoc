@@ -44,7 +44,7 @@ What is the total brightness of all lights combined after following Santa's inst
 */
 
 func main() {
-	bufio := bufio.NewReader(os.Stdin)
+	reader := bufio.NewReader(os.Stdin)
 	regex := regexp.MustCompile("(turn off|turn on|toggle) ([0-9]+),([0-9]+) through ([0-9]+),([0-9]+)")
 
 	lights, lights_interval := make([][]bool, 1000), make([][]int, 1000)
@@ -57,7 +57,7 @@ func main() {
 	lit_count, brightness_count := 0, 0
 
 	for {
-		line, err := bufio.ReadString('\n')
+		line, err := reader.ReadString('\n')
 
 		if err == io.EOF {
 			break
